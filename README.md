@@ -5,7 +5,7 @@
 
 ```
 .
-├── www/                        
+├── inconnuboy/                        
 │   └── index.html              
 ├── android-icons/
 │   └── logo-source.png         
@@ -22,7 +22,7 @@
 ```bash
 npm install
 npx cap add android      # crée le dossier android/ (une seule fois)
-npx cap sync android      # copie www/ vers android/ à chaque modif
+npx cap sync android      # copie inconnuboy/ vers android/ à chaque modif
 npx cap open android      # ouvre Android Studio pour builder/signer/tester
 ```
 
