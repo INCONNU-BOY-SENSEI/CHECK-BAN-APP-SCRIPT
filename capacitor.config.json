@@ -1,0 +1,9 @@
+{
+  "appId": "com.inconnustudio.check",
+  "appName": "INCONNU CHECK",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": true
+  }
+}
