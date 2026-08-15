@@ -7,26 +7,17 @@ nommé **INCONNU CHECK**, via [Capacitor](https://capacitorjs.com/) et [GitHub A
 
 ```
 .
-├── www/                        ← TON HTML VA ICI
-│   └── index.html              ← renomme ton fichier .html en index.html
+├── www/                        
+│   └── index.html              
 ├── android-icons/
-│   └── logo-source.png         ← logo INCONNU STUDIO, source pour générer l'icône de l'app
-├── android/                    ← généré automatiquement par `npx cap add android` (ne pas committer à la main)
+│   └── logo-source.png         
+├── android/                   
 ├── .github/workflows/
-│   └── build-apk.yml           ← pipeline CI qui build l'APK à chaque push
-├── capacitor.config.json       ← config Capacitor (appId: com.inconnustudio.check, appName: INCONNU CHECK)
+│   └── build-apk.yml          
+├── capacitor.config.json       
 └── package.json
 ```
 
-### Où mettre ton fichier HTML
-
-1. Renomme ton fichier en `index.html`.
-2. Place-le dans `www/index.html`.
-3. Si ton HTML référence des images/CSS/JS externes en local (pas des URLs distantes),
-   mets-les aussi dans `www/` en respectant les chemins relatifs utilisés dans le HTML.
-
-Le dossier `www/` est le `webDir` déclaré dans `capacitor.config.json` — c'est
-exactement ce dossier que Capacitor empaquette tel quel dans l'APK (WebView Android).
 
 ## Mise en route en local
 
@@ -46,18 +37,6 @@ Le workflow `.github/workflows/build-apk.yml` :
 - build un **APK debug** (non signé pour le Play Store, installable directement sur un téléphone)
 - dépose l'APK en tant qu'artifact téléchargeable dans l'onglet **Actions → run → Artifacts**
 
-### Pour l'utiliser
-
-1. Crée un repo GitHub, pousse ce projet (avec `www/index.html` rempli).
-2. Va dans l'onglet **Actions** du repo → le workflow tourne automatiquement.
-3. Une fois terminé, télécharge l'artifact `app-debug-apk`.
-
-### Pour un APK signé (release, distribuable hors GitHub)
-
-Il faut générer un keystore (`keytool -genkeypair ...`), l'ajouter en secret
-GitHub (`ANDROID_KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, etc.), et ajouter une
-étape `assembleRelease` + signature dans le workflow. Dis-moi si tu veux que
-je l'ajoute — ça demande de générer et sécuriser tes propres clés.
 
 ## Personnalisation
 
