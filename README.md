@@ -1,4 +1,4 @@
-# INCONNU CHECK — wrapper Capacitor → APK Android
+# INCONNU BAN CHECK 
 
 Squelette de projet pour transformer une app web (HTML/CSS/JS) en APK Android
 nommé **INCONNU CHECK**, via [Capacitor](https://capacitorjs.com/) et [GitHub Actions](https://docs.github.com/actions).
