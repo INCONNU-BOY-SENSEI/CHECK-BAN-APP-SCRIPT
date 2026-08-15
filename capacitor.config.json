@@ -1,7 +1,7 @@
 {
   "appId": "com.inconnustudio.check",
-  "appName": "INCONNU CHECK",
-  "webDir": "www",
+  "appName": "INCONNU BAN CHECK",
+  "webDir": "inconnuboy",
   "bundledWebRuntime": false,
   "android": {
     "allowMixedContent": true
