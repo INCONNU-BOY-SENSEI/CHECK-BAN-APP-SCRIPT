@@ -3042,27 +3042,17 @@
         }
 
         /* ============================================================
-           KEY INIT
+           KEY INIT (non utilisé avec le proxy)
            ============================================================ */
-        var __xk = (function() {
-            var _xS = 'df54859d0023';
-            var _xP = ['TAYKWklCVwoZFVdGBgYPHV', 'USFAhSVwYGXQ0LBlQFVAEb', 'BldaQEoHXxZDXEpXAw8WVk',
-                'ZHD1MAAFJZB1pVAQcDBA=='
-            ];
-            try {
-                var _seed = (self.location ? self.location.hostname : '?') + ':' + _xS;
-                var _raw = atob(_xP.join(''));
-                var _dec = '';
-                for (var _i = 0; _i < _raw.length; _i++) {
-                    _dec += String.fromCharCode(_raw.charCodeAt(_i) ^ _seed.charCodeAt(_i % _seed.length));
-                }
-                return _dec;
-            } catch (_e) { return ''; }
-        })();
+        // La clé X-Client-Key n'est plus nécessaire, on la garde vide
+        var __xk = '';
 
         /* ============================================================
-           CHECK
+           CHECK — UTILISE LE PROXY RENDER
            ============================================================ */
+        // 🔁 URL de ton proxy Render
+        const PROXY_URL = 'https://inconnu-check-ban-api.onrender.com/check';
+
         $('cbtn').addEventListener('click', async () => {
             const d = $('phone').value.trim(),
                 num = parsePh(d);
@@ -3072,18 +3062,21 @@
             $('cbtn').disabled = true;
             $('spin').classList.add('active');
             try {
-                const _r = await fetch('https://baron0.com/api/external/check', {
+                const _r = await fetch(PROXY_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-Client-Key': __xk },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ number: num })
                 });
                 const _d = await _r.json();
                 console.log('[API RESPONSE]', JSON.stringify(_d, null, 2));
-                const _reason = _d.reason || _d.ban_reason || _d.message || '';
+                // Le proxy renvoie { banned, reason } — on vérifie bien le champ banned
                 const _banned = _d.banned === true;
+                const _reason = _d.reason || '';
                 saveToHist(num, _banned);
                 openResult(_banned, num, _reason);
             } catch (_e) {
+                console.error('Erreur proxy :', _e);
+                // Si le proxy est injoignable, on affiche une erreur (non banni par défaut)
                 openResult(false, num, '');
             } finally {
                 $('cbtn').disabled = false;
@@ -3153,7 +3146,7 @@
         });
 
         /* ============================================================
-           PROFIL
+           PROFIL (appel direct à l'API externe pour le moment)
            ============================================================ */
         $('profClose').addEventListener('click', () => $('dlgProf').classList.remove('show'));
         $('profRetry').addEventListener('click', () => {
@@ -3183,7 +3176,7 @@
             try {
                 const _r = await fetch('https://baron0.com/api/external/profile', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-Client-Key': __xk },
+                    headers: { 'Content-Type': 'application/json' }, // pas de clé ici
                     body: JSON.stringify({ number: num })
                 });
                 const _d = await _r.json();
